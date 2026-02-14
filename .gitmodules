@@ -1,3 +1,4 @@
 [submodule "Engine"]
 	path = Engine
 	url = https://github.com/CanReader/SleakEngine.git
+	branch = main

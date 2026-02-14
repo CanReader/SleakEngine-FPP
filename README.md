@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo.png" alt="SleakEngine" width="200">
+  <img src="https://github.com/CanReader/SleakEngine/blob/main/logo.png" alt="SleakEngine" width="200">
 </p>
 
 <h1 align="center">SleakEngine Empty Template</h1>
@@ -27,7 +27,7 @@ This is a **game project template** for [SleakEngine](https://github.com/CanRead
 - `scripts/` &mdash; Build helper scripts
 - `docs/` &mdash; Scene system guide and documentation
 
-The Engine is pinned to a specific commit via the submodule. You control when to update.
+The Engine is included as a git submodule. Use `git submodule update --remote` to fetch the latest version.
 
 ## Prerequisites
 
@@ -43,13 +43,14 @@ All engine dependencies are vendored &mdash; no package manager needed.
 ### Clone
 
 ```bash
-git clone --recursive https://github.com/CanReader/SleakEngine-Empty.git
+git clone --recurse-submodules https://github.com/CanReader/SleakEngine-Empty.git
 cd SleakEngine-Empty
+git submodule update --remote
 ```
 
-> **Already cloned without `--recursive`?** Fetch the Engine submodule:
+> **Already cloned without `--recurse-submodules`?** Fetch the Engine submodule:
 > ```bash
-> git submodule update --init --recursive
+> git submodule update --init --recursive --remote
 > ```
 
 ### Build
