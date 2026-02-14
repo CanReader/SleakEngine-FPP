@@ -1,0 +1,7 @@
+# The .clang-format file is used to define coding style rules for C, C++, Java, JavaScript, and other languages supported by the Clang toolset. Here are the main aspects
+# It specifies how code should be formatted automatically, ensuring consistency across a codebase.
+
+BasedOnStyle: Google
+IndentWidth: 4
+ColumnLimit: 80
+

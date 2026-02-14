@@ -1,0 +1,24 @@
+# Use a Windows base image
+FROM mcr.microsoft.com/windows/servercore:ltsc2022
+
+# Install Chocolatey
+RUN powershell -NoProfile -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+
+# Install required packages
+RUN choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' -y
+RUN choco install visualstudio2019buildtools --package-parameters '--allWorkloads --includeRecommended --includeOptional' -y
+RUN choco install git -y
+RUN choco install vulkan-sdk -y
+RUN choco install directx -y
+
+# Set up your project directory
+WORKDIR C:\\src\\sleakengine
+
+# Copy the project files to the container
+COPY . .
+
+# Build the project
+RUN mkdir build && cd build && cmake .. && cmake --build .
+
+# Entry point for your application (if applicable)
+CMD ["C:\\src\\sleakengine\\bin\\SleakEngine.exe"]

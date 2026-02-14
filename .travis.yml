@@ -1,0 +1,59 @@
+language: cpp
+
+os:
+  - linux
+  - osx
+  - windows
+
+env:
+  global:
+    - VULKAN_SDK_VERSION=1.2.176.1
+
+matrix:
+  include:
+    - os: linux
+      dist: focal
+      compiler: gcc
+      before_install:
+        - sudo apt-get update -qq
+        - sudo apt-get install -y cmake libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev
+      install:
+        - wget -qO- https://sdk.lunarg.com/sdk/download/${VULKAN_SDK_VERSION}/linux/vulkan-sdk.tar.gz | tar -xz
+        - source ./vulkansdk/setup-env.sh
+        - cd Engine/vendors/glm && cmake . && make && sudo make install && cd ../../..
+      script:
+        - mkdir -p build && cd build
+        - cmake ..
+        - make
+        - make test
+
+    - os: osx
+      osx_image: xcode12.5
+      compiler: clang
+      before_install:
+        - brew update
+        - brew install cmake
+      install:
+        - wget -qO- https://sdk.lunarg.com/sdk/download/${VULKAN_SDK_VERSION}/mac/vulkan-sdk.dmg | hdiutil attach -
+        - source /Volumes/vulkansdk-macos-${VULKAN_SDK_VERSION}/setup-env.sh
+        - cd Engine/vendors/glm && cmake . && make && sudo make install && cd ../../..
+      script:
+        - mkdir -p build && cd build
+        - cmake ..
+        - make
+        - make test
+
+    - os: windows
+      before_install:
+        - powershell -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; `iex ((New-Object System.Net.WebClient).DownloadString('https://aka.ms/install-powershell.ps1'))"
+      install:
+        - winget install -e --id Kitware.CMake
+        - winget install -e --id LLVM.LLVM
+        - winget install -e --id LunarG.VulkanSDK
+        - $env:VULKAN_SDK = "C:\VulkanSDK\${VULKAN_SDK_VERSION}"
+        - cd Engine/vendors/glm && cmake . && make && sudo make install && cd ../../..
+      script:
+        - mkdir -p build && cd build
+        - cmake ..
+        - cmake --build .
+        - ctest

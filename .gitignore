@@ -1,0 +1,59 @@
+# Build output
+build/
+bin/
+
+# IDE and editor files
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+.cache/
+
+# Compiled objects
+*.o
+*.obj
+*.d
+*.pdb
+*.ilk
+*.exp
+
+# Libraries
+*.lib
+*.a
+*.so
+*.dylib
+*.dll
+
+# Exception: vendored Vulkan SDK libraries needed for build
+!Engine/vendors/VulkanSdk/Lib/vulkan-1.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+CTestTestfile.cmake
+
+# Runtime artifacts
+Engine.log
+imgui.ini
+*.log
+
+# OS files
+Thumbs.db
+.DS_Store
+Desktop.ini
+
+# Miscellaneous
+.prettierrc
+log.txt
+nul

@@ -1,0 +1,22 @@
+# Use an Ubuntu base image
+FROM ubuntu:20.04
+
+# Install required packages
+RUN apt-get update && apt-get install -y \
+    cmake \
+    g++ \
+    make \
+    git \
+    libvulkan-dev
+
+# Set up your project directory
+WORKDIR /usr/src/sleakengine
+
+# Copy the project files to the container
+COPY . .
+
+# Build the project
+RUN mkdir build && cd build && cmake .. && make
+
+# Entry point for your application (if applicable)
+CMD ["./bin/SleakEngine"]

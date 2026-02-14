@@ -1,0 +1,41 @@
+laude -p "How can I run my app with docker windows?"
+You already have a `Dockerfile.windows` in your project. Here's how to use it:
+
+### Prerequisites
+
+1. **Docker Desktop for Windows** must be installed and running
+2. Docker must be switched to **Windows containers** (right-click the Docker tray icon -> "Switch to Windows containers...")
+
+### Build the image
+
+```powershell
+docker build -f Dockerfile.windows -t sleakengine .
+```
+
+### Run the container
+
+```powershell
+docker run sleakengine
+```
+
+Or with custom window size/title arguments:
+
+```powershell
+docker run sleakengine C:\src\sleakengine\bin\SleakEngine.exe -w 1280 -h 720 -t My_Game
+```
+
+### Important caveats
+
+- **GPU access:** SleakEngine uses DirectX/Vulkan rendering. Standard Windows containers don't have GPU passthrough. You'll need either:
+  - **Windows containers with GPU support** (requires Windows Server 2019+ with compatible hardware and `--device` flags or `--gpus` on newer Docker versions)
+  - Or run in **software rendering** mode (if your engine supports WARP/Mesa)
+
+- **No display by default:** Windows Server Core has no GUI. For a graphical app you'd typically need to either:
+  - Use a `windows` base image instead of `servercore` (though these aren't officially distributed by Microsoft for containers)
+  - Run headless / offscreen
+  - Use remote display solutions
+
+- **Image size:** The VS build tools + Vulkan SDK + DirectX SDK will make this image very large (20+ GB).
+
+**For development purposes*
+
