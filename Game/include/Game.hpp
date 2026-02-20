@@ -3,7 +3,6 @@
 
 #include <GameBase.hpp>
 #include <Core/OSDef.hpp>
-#include <Memory/RefPtr.h>
 
 class SLEAK_API Game : public Sleak::GameBase {
 public:
@@ -24,14 +23,10 @@ public:
   // Called every frame. Use for per-frame game logic.
   void Loop(float DeltaTime) override;
 
-  int Run();
-
   inline bool GetIsGameRunning() { return bIsGameRunning; }
 
 private:
   bool bIsGameRunning = true;
-
-  Sleak::Scene* mainScene = nullptr;
 };
 
 #endif
