@@ -100,8 +100,8 @@ bool Game::Initialize() {
     // --- Add a directional light (sun) ---
     auto* sun = new Sleak::DirectionalLight("Sun");
     sun->SetDirection(Vector3D(-0.4f, -0.8f, -0.4f));
-    sun->SetColor(1.0f, 0.98f, 0.95f);
-    sun->SetIntensity(2.0f);
+    sun->SetColor(1.0f, 0.98f, 0.92f);   // warm sunlight
+    sun->SetIntensity(1.8f);
     sun->SetCastShadows(true);
     sun->SetShadowBias(0.003f);
     sun->SetShadowNormalBias(0.04f);
@@ -113,10 +113,11 @@ bool Game::Initialize() {
     mainScene->AddObject(sun);
 
     // --- Configure scene ambient lighting ---
+    // Sky-blue ambient — hemisphere shader blends this with warm ground bounce
     auto* lm = mainScene->GetLightManager();
     if (lm) {
-        lm->SetAmbientColor(0.15f, 0.15f, 0.2f);
-        lm->SetAmbientIntensity(1.0f);
+        lm->SetAmbientColor(0.6f, 0.65f, 0.75f);  // neutral sky
+        lm->SetAmbientIntensity(0.25f);
     }
 
     return true;
